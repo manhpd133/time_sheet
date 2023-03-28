@@ -1,13 +1,16 @@
 package vn.stepup.timesheet.service;
 
+import org.apache.xmlbeans.impl.xb.xsdschema.Public;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import vn.stepup.timesheet.dto.UsersDto;
 import vn.stepup.timesheet.model.Users;
 import vn.stepup.timesheet.reponsitory.UsersRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -38,8 +41,11 @@ public class AdminService {
         }
     }
 
-    public int deleteEmployee (Long id) {
-        return usersRepository.deleteUserId(id);
+    public void deleteEmployee (Long id) {
+       usersRepository.deleteById(id);
     }
 
+    public List<Users> findByNameUsers (String name) {
+        return usersRepository.findByFullNameUsers(name);
+    }
 }
