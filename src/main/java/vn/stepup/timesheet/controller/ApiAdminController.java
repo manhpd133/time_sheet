@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import vn.stepup.timesheet.dto.UsersDto;
 import vn.stepup.timesheet.model.Users;
 import vn.stepup.timesheet.service.AdminService;
 
@@ -30,10 +29,12 @@ public class ApiAdminController {
        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("find_name/{full_name}")
-    public List<Users> getUserByName (@PathVariable(name = "full_name") String name) {
-        List<Users> findByUserName = adminService.findByNameUsers(name);
-
-        return findByUserName;
+    @GetMapping("/search")
+    public ResponseEntity<List<Users>> searchUsersByFullName(@RequestParam("name") String name) {
+        List<Users> users = adminService.findUsersByFullName(name);
+        if(users.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(users);
     }
 }

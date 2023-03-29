@@ -45,7 +45,7 @@ public class AdminService {
        usersRepository.deleteById(id);
     }
 
-    public List<Users> findByNameUsers (String name) {
+    public List<Users> findUsersByFullName(String name) {
         return usersRepository.findByFullNameUsers(name);
     }
 }
